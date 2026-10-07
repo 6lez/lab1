@@ -8,7 +8,8 @@ from grader_contracts.numpy_tasks import (
 )
 
 def sum_prod(data: MatrixVectorBatchInput) -> np.ndarray:
-    matrices, vectors = data.matrices, data.vectors
+    matrices = np.asarray(data.matrices)
+    vectors = np.asarray(data.vectors)
     if vectors.ndim == 1:  # один вектор (n,) -> (1, n, 1)
         vectors = vectors.reshape(1, -1, 1)
     elif vectors.ndim == 2:  # набор векторов (p, n) -> (p, n, 1)
@@ -120,7 +121,6 @@ def one_hot(data: OneHotInput) -> np.ndarray:
     encoded[np.arange(labels.size)[valid], labels[valid]] = 1
     return encoded
 
-# Тесты: простой прогон функций на разных значениях, включая граничные случаи.
 np.set_printoptions(precision=4, suppress=True, linewidth=120)
 
 print("=== Задача 1. sum_prod ===")
